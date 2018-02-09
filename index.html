@@ -1,65 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hangman</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
+  </script>
+  <link href="Hangman_HW.css" rel="stylesheet" type="text/css">
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js">
+  </script>
+  <title>Hangman</title>
 </head>
 <body>
+  <div class="jumbotron">
+  <h1 class="display-4">Hangman</h1>
+  <hr class="my-4">
+  <p>Select a letter from A - Z</p>
+  <button onclick="game('A');" class="guess a">A</button>
+  <button onclick="game('B');" class="guess">B</button>
+  <button onclick="game('C');" class="guess">C</button>
+  <button onclick="game('D');" class="guess">D</button>
+  <button onclick="game('E');" class="guess">E</button>
+  <button onclick="game('F');" class="guess">F</button>
+  <button onclick="game('G');" class="guess">G</button>
+  <button onclick="game('H');" class="guess">H</button>
+  <button onclick="game('I');" class="guess">I</button>
+  <button onclick="game('J');" class="guess">J</button>
+  <button onclick="game('K');" class="guess">K</button>
+  <button onclick="game('L');" class="guess">L</button>
+  <button onclick="game('M');" class="guess">M</button>
+  <button onclick="game('N');" class="guess">N</button>
+  <button onclick="game('O');" class="guess">O</button>
+  <button onclick="game('P');" class="guess">P</button>
+  <button onclick="game('Q');" class="guess">Q</button>
+  <button onclick="game('R');" class="guess">R</button>
+  <button onclick="game('S');" class="guess">S</button>
+  <button onclick="game('T');" class="guess">T</button>
+  <button onclick="game('U');" class="guess">U</button>
+  <button onclick="game('V');" class="guess">V</button>
+  <button onclick="game('W');" class="guess">W</button>
+  <button onclick="game('X');" class="guess">X</button>
+  <button onclick="game('Y');" class="guess">Y</button>
+  <button onclick="game('Z');" class="guess">Z</button>
+  <div id="results"></div>
+  <h5>Letters used:</h5>
+  <div id="used"></div>
+</div>
+<div id="results"></div>
+  <script>
+    var word = ["tiger", "lion", "giraffe", "monkey", "elephant", "cheetah"];
+var words = word[Math.floor(Math.random() * word.length)];
+var answerArray = [];
+// Takes the length of the word and replaces it with _ _ _ _ _
+for (var i = 0; i < words.length; i++) {
+  document.getElementById("results").innerHTML += " _ ";
+}
 
- <h1>Hangman!</h1>
+var remainingLetters = words.length;
 
- <script>
- // Create an array of words
- var words = [
- "",
- "samsung",
- "pixel",
- ""
- ];
- // Pick a random word
- var word = words[Math.floor(Math.random() * words.length)];
- // Set up the answer array
- var answerArray = [];
- for (var i = 0; i < word.length; i++) {
- answerArray[i] = "_";
- }
- var remainingLetters = word.length;
- // The game loop
- while (remainingLetters > 0) {
- // Show the player their progress
- alert(answerArray.join(" "));
- // Get a guess from the player
- var guess = prompt("Guess a letter, or click Cancel to stop playing.");
- if (guess === null) {
- // Exit the game loop
- break;
- } else if (guess.length !== 1) {
- alert("Please enter a single letter.");
- } else {
- // Update the game state with the guess
- for (var j = 0; j < word.length; j++) {
- if (word[j] === guess) {
- answerArray[j] = guess;
- remainingLetters--;
- }
- }
- }
-// The end of the game loop
- }
- // Show the answer and congratulate the player
- alert(answerArray.join(" "));
- alert("Good job! The answer was " + word);
- </script>
-</body>
-</html>
+function game(guess){
+    var found = -1;
+    for (var j = 0; j < words.length; j++) {
+      //Makes the players input lowercase to make this simple
+      if (words[j].toLowerCase() == guess.toLowerCase()) {
+        answerArray[j] = guess;
+        found = j;
+        remainingLetters--;
+      }
+    } //Creates a new variable with a blank space to fill in the letters
+    var answerStr = '';
+    if(found >= 0){
+      for (var f = 0; f < words.length; f++) {
+        if (words[f].toUpperCase() == answerArray[f]) {
+          answerStr += " "+answerArray[f]+" ";
+        } else {
+          answerStr += ' _ ';
+        } //Prints the key pressed onto the HTML page
+        document.getElementById("results").innerHTML = answerStr;
+      }
+    }else{
+      alert('wrong answer');
+    }  
+} 
+
+//Could not figure out how to get the game to stop the game and congradulate the player once theyve answered every letter in time.
 
 
-
-
-
-
-
-
-
-</script>
+  </script>
 </body>
 </html>
